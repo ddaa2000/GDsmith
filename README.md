@@ -13,13 +13,7 @@ Requirements:
 
 # Project Structure
 
-* FSEcode: Code and downloaded data for the empirical study.
-* src
-  * gdsmith
-    * common:  infrastructure
-    * cypher: the open cypher ast
-    * support for different databases[neo4j, redisGraph, ...]
-* out: the executable jar file GDsmith.jar
+TBD
 
 
 
@@ -55,9 +49,8 @@ Here are the set of databases supported by GDsmith:
 ```
 neo4j
 redisgraph
-arcadedb
 memgraph
-redisgraph
+arcadedb
 ```
 
 You can use these database names ([database]) to indicate which database you want to test.
