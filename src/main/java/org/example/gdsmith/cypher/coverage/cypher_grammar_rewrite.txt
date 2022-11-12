@@ -1,0 +1,479 @@
+// A bunch of words
+start: cypher
+
+
+// imports CNAME, ESCAPED_STRING from library
+%import common.CNAME
+%import common.ESCAPED_STRING
+
+// Disregard spaces in text
+%ignore " "           
+
+cypher : [sp] statement [[sp] ";"] [sp] eoi 
+
+statement : query 
+
+query : regularquery
+      | standalonecall
+      
+
+regularquery : singlequery ( [sp] union )* 
+
+union : ((u n i o n) sp (a l l) [sp] singlequery)
+      | ((u n i o n) [sp] singlequery)
+      
+
+singlequery : singlepartquery
+            | multipartquery
+            
+
+singlepartquery : (( readingclause [sp] )* return)
+                | (( readingclause [sp] )* updatingclause ( [sp] updatingclause )* [[sp] return])
+                
+
+multipartquery : ( ( readingclause [sp] )* ( updatingclause [sp] )* with [sp] )+ singlepartquery 
+
+updatingclause : create
+               | merge
+               | delete
+               | set
+               | remove
+               
+
+readingclause : match
+              | unwind
+              | inquerycall
+              
+
+match : [(o p t i o n a l) sp] (m a t c h) [sp] pattern [[sp] where] 
+
+unwind : (u n w i n d) [sp] expression sp (a s) sp variable 
+
+merge : (m e r g e) [sp] patternpart ( sp mergeaction )* 
+
+mergeaction : ((o n) sp (m a t c h) sp set)
+            | ((o n) sp (c r e a t e) sp set)
+            
+
+create : (c r e a t e) [sp] pattern 
+
+set : (s e t) [sp] setitem ( [sp] "," [sp] setitem )* 
+
+setitem : (propertyexpression [sp] "=" [sp] expression)
+        | (variable [sp] "=" [sp] expression)
+        | (variable [sp] "+=" [sp] expression)
+        | (variable [sp] nodelabels)
+        
+
+delete : [(d e t a c h) sp] (d e l e t e) [sp] expression ( [sp] "," [sp] expression )* 
+
+remove : (r e m o v e) sp removeitem ( [sp] "," [sp] removeitem )* 
+
+removeitem : (variable nodelabels)
+           | propertyexpression
+           
+
+inquerycall : (c a l l) sp explicitprocedureinvocation [[sp] (y i e l d) sp yielditems] 
+
+standalonecall : (c a l l) sp (explicitprocedureinvocation | implicitprocedureinvocation) [[sp] (y i e l d) sp ("*" | yielditems)] 
+
+yielditems : yielditem ( [sp] "," [sp] yielditem )* [[sp] where] 
+
+yielditem : [procedureresultfield sp (a s) sp] variable 
+
+with : (w i t h) projectionbody [[sp] where] 
+
+return : (r e t u r n) projectionbody 
+
+projectionbody : [[sp] (d i s t i n c t)] sp projectionitems [sp order] [sp skip] [sp limit] 
+
+projectionitems : ("*" ( [sp] "," [sp] projectionitem )*)
+                | (projectionitem ( [sp] "," [sp] projectionitem )*)
+                
+
+projectionitem : (expression sp (a s) sp variable)
+               | expression
+               
+
+order : (o r d e r) sp (b y) sp sortitem ( "," [sp] sortitem )* 
+
+skip : (s k i p) sp expression 
+
+limit : (l i m i t) sp expression 
+
+sortitem : expression [[sp] ((a s c e n d i n g) | (a s c) | (d e s c e n d i n g) | (d e s c))] 
+
+where : (w h e r e) sp expression 
+
+pattern : patternpart ( [sp] "," [sp] patternpart )* 
+
+patternpart : (variable [sp] "=" [sp] anonymouspatternpart)
+            | anonymouspatternpart
+            
+
+anonymouspatternpart : patternelement 
+
+patternelement : (nodepattern ( [sp] patternelementchain )*)
+               | ("(" patternelement ")")
+               
+
+nodepattern : "(" [sp] [variable [sp]] [nodelabels [sp]] [properties [sp]] ")" 
+
+patternelementchain : relationshippattern [sp] nodepattern 
+
+relationshippattern : (leftarrowhead [sp] dash [sp] [relationshipdetail] dash [sp] rightarrowhead)
+                    | (leftarrowhead [sp] dash [sp] [relationshipdetail] dash)
+                    | (dash [sp] [relationshipdetail] dash [sp] rightarrowhead)
+                    | (dash [sp] [relationshipdetail] dash)
+       
+       
+relationshipdetail : "[" [sp] [variable [sp]] [relationshiptypes [sp]] [rangeliteral] [properties [sp]] "]" 
+
+properties : mapliteral
+           | parameter
+           
+
+relationshiptypes : ":" [sp] reltypename ( [sp] "|" [":"] [sp] reltypename )* 
+
+nodelabels : nodelabel ( [sp] nodelabel )* 
+
+nodelabel : ":" [sp] labelname 
+
+rangeliteral : "*" [sp] [integerliteral [sp]] [".." [sp] [integerliteral [sp]]] 
+
+labelname : schemaname 
+
+reltypename : schemaname 
+
+expression : orexpression 
+
+orexpression : xorexpression ( sp (o r) sp xorexpression )* 
+
+xorexpression : andexpression ( sp (x o r) sp andexpression )* 
+
+andexpression : notexpression ( sp (a n d) sp notexpression )* 
+
+notexpression : ( (n o t) [sp] )* comparisonexpression 
+
+comparisonexpression : addorsubtractexpression ( [sp] partialcomparisonexpression )* 
+
+addorsubtractexpression : multiplydividemoduloexpression ( ([sp] "+" [sp] multiplydividemoduloexpression) | ([sp] "-" [sp] multiplydividemoduloexpression) )* 
+
+multiplydividemoduloexpression : powerofexpression ( ([sp] "*" [sp] powerofexpression) | ([sp] "/" [sp] powerofexpression) | ([sp] "%" [sp] powerofexpression) )* 
+
+powerofexpression : unaryaddorsubtractexpression ( [sp] "^" [sp] unaryaddorsubtractexpression )* 
+
+unaryaddorsubtractexpression : ( ("+" | "-") [sp] )* stringlistnulloperatorexpression 
+
+stringlistnulloperatorexpression : propertyorlabelsexpression ( stringoperatorexpression | listoperatorexpression | nulloperatorexpression )* 
+
+listoperatorexpression : (sp (i n) [sp] propertyorlabelsexpression)
+                       | ([sp] "[" expression "]")
+                       | ([sp] "[" [expression] ".." [expression] "]")
+                       
+
+stringoperatorexpression : ((sp (s t a r t s) sp (w i t h)) | (sp (e n d s) sp (w i t h)) | (sp (c o n t a i n s))) [sp] propertyorlabelsexpression 
+
+nulloperatorexpression : (sp (i s) sp (n u l l))
+                       | (sp (i s) sp (n o t) sp (n u l l))
+                       
+
+propertyorlabelsexpression : atom ( [sp] propertylookup )* [[sp] nodelabels] 
+
+atom : literal
+     | parameter
+     | caseexpression
+     | ((c o u n t) [sp] "(" [sp] "*" [sp] ")")
+     | listcomprehension
+     | patterncomprehension
+     | ((a l l) [sp] "(" [sp] filterexpression [sp] ")")
+     | ((a n y) [sp] "(" [sp] filterexpression [sp] ")")
+     | ((n o n e) [sp] "(" [sp] filterexpression [sp] ")")
+     | ((s i n g l e) [sp] "(" [sp] filterexpression [sp] ")")
+     | relationshipspattern
+     | parenthesizedexpression
+     | functioninvocation
+     | existentialsubquery
+     | variable
+     
+
+literal : numberliteral
+        | stringliteral
+        | booleanliteral
+        | (n u l l)
+        | mapliteral
+        | listliteral
+        
+
+booleanliteral : (t r u e)
+               | (f a l s e)
+               
+
+listliteral : "[" [sp] [expression [sp] ( "," [sp] expression [sp] )*] "]" 
+
+partialcomparisonexpression : ("=" [sp] addorsubtractexpression)
+                            | ("<>" [sp] addorsubtractexpression)
+                            | ("<" [sp] addorsubtractexpression)
+                            | (">" [sp] addorsubtractexpression)
+                            | ("<=" [sp] addorsubtractexpression)
+                            | (">=" [sp] addorsubtractexpression)
+                            
+
+parenthesizedexpression : "(" [sp] expression [sp] ")" 
+
+relationshipspattern : nodepattern ( [sp] patternelementchain )+ 
+
+filterexpression : idincoll [[sp] where] 
+
+idincoll : variable sp (i n) sp expression 
+
+functioninvocation : functionname [sp] "(" [sp] [(d i s t i n c t) [sp]] [expression [sp] ( "," [sp] expression [sp] )*] ")" 
+
+functionname : namespace symbolicname 
+
+existentialsubquery : (e x i s t s) [sp] "{" [sp] (regularquery | (pattern [[sp] where])) [sp] "}" 
+
+explicitprocedureinvocation : procedurename [sp] "(" [sp] [expression [sp] ( "," [sp] expression [sp] )*] ")" 
+
+implicitprocedureinvocation : procedurename 
+
+procedureresultfield : symbolicname 
+
+procedurename : namespace symbolicname 
+
+namespace : ( symbolicname "." )* 
+
+listcomprehension : "[" [sp] filterexpression [[sp] "|" [sp] expression] [sp] "]" 
+
+patterncomprehension : "[" [sp] [variable [sp] "=" [sp]] relationshipspattern [sp] [where [sp]] "|" [sp] expression [sp] "]" 
+
+propertylookup : "." [sp] (propertykeyname) 
+
+caseexpression : (((c a s e) ( [sp] casealternative )+) | ((c a s e) [sp] expression ( [sp] casealternative )+)) [[sp] (e l s e) [sp] expression] [sp] (e n d) 
+
+casealternative : (w h e n) [sp] expression [sp] (t h e n) [sp] expression 
+
+variable : symbolicname 
+
+stringliteral : CNAME | ESCAPED_STRING 
+
+numberliteral : doubleliteral
+              | integerliteral
+              
+
+mapliteral : "{" [sp] [propertykeyname [sp] ":" [sp] expression [sp] ( "," [sp] propertykeyname [sp] ":" [sp] expression [sp] )*] "}" 
+
+parameter : "$" (symbolicname | decimalinteger) 
+
+propertyexpression : atom ( [sp] propertylookup )+ 
+
+propertykeyname : schemaname 
+
+integerliteral : hexinteger
+               | octalinteger
+               | decimalinteger
+               
+
+hexinteger : "0x" ( hexdigit )+ 
+
+decimalinteger : zerodigit
+               | (nonzerodigit ( digit )*)
+               
+
+octalinteger : zerodigit ( octdigit )+ 
+
+hexletter : (a)
+          | (b)
+          | (c)
+          | (d)
+          | (e)
+          | (f)
+          
+
+hexdigit : digit
+         | hexletter
+         
+
+digit : zerodigit
+      | nonzerodigit
+      
+
+nonzerodigit : nonzerooctdigit
+             | "8"
+             | "9"
+             
+
+nonzerooctdigit : "1"
+                | "2"
+                | "3"
+                | "4"
+                | "5"
+                | "6"
+                | "7"
+                
+
+octdigit : zerodigit
+         | nonzerooctdigit
+         
+
+zerodigit : "0" 
+
+doubleliteral : exponentdecimalreal
+              | regulardecimalreal
+              
+
+exponentdecimalreal : (( digit )+ | (( digit )+ "." ( digit )+) | ("." ( digit )+)) (e) ["-"] ( digit )+ 
+
+regulardecimalreal : ( digit )* "." ( digit )+ 
+
+schemaname : symbolicname
+           | reservedword
+           
+
+reservedword : (a l l)
+             | (a s c)
+             | (a s c e n d i n g)
+             | (b y)
+             | (c r e a t e)
+             | (d e l e t e)
+             | (d e s c)
+             | (d e s c e n d i n g)
+             | (d e t a c h)
+             | (e x i s t s)
+             | (l i m i t)
+             | (m a t c h)
+             | (m e r g e)
+             | (o n)
+             | (o p t i o n a l)
+             | (o r d e r)
+             | (r e m o v e)
+             | (r e t u r n)
+             | (s e t)
+             | (s k i p)
+             | (w h e r e)
+             | (w i t h)
+             | (u n i o n)
+             | (u n w i n d)
+             | (a n d)
+             | (a s)
+             | (c o n t a i n s)
+             | (d i s t i n c t)
+             | (e n d s)
+             | (i n)
+             | (i s)
+             | (n o t)
+             | (o r)
+             | (s t a r t s)
+             | (x o r)
+             | (f a l s e)
+             | (t r u e)
+             | (n u l l)
+             | (c o n s t r a i n t)
+             | (d o)
+             | (f o r)
+             | (r e q u i r e)
+             | (u n i q u e)
+             | (c a s e)
+             | (w h e n)
+             | (t h e n)
+             | (e l s e)
+             | (e n d)
+             | (m a n d a t o r y)
+             | (s c a l a r)
+             | (o f)
+             | (a d d)
+             | (d r o p)
+             
+
+symbolicname : unescapedsymbolicname
+             | escapedsymbolicname
+             | hexletter
+             | (c o u n t)
+             | (f i l t e r)
+             | (e x t r a c t)
+             | (a n y)
+             | (n o n e)
+             | (s i n g l e)
+             
+
+unescapedsymbolicname : stringliteral
+
+escapedsymbolicname : ( "`" ( (stringliteral)+ ("`") )* "`" )+ 
+
+sp : ( whitespace )* 
+
+whitespace : " "
+           | " "
+           | comment
+           
+
+comment : ("/*" ( (stringliteral)+ ("*") | ("*" (stringliteral)+ ("/")) )* "*/")
+        | ("//" ( (stringliteral)+ )* (eoi))
+
+leftarrowhead : "<"
+              | "⟨"
+              | "〈"
+              | "﹤"
+              | "＜"
+              
+
+rightarrowhead : ">"
+               | "⟩"
+               | "〉"
+               | "﹥"
+               | "＞"
+               
+
+dash : "-"
+     
+a : "A" | "a" 
+
+b : "B" | "b" 
+
+c : "C" | "c" 
+
+d : "D" | "d" 
+
+e : "E" | "e" 
+
+f : "F" | "f" 
+
+g : "G" | "g" 
+
+h : "H" | "h" 
+
+i : "I" | "i" 
+
+k : "K" | "k" 
+
+l : "L" | "l" 
+
+m : "M" | "m" 
+
+n : "N" | "n" 
+
+o : "O" | "o" 
+
+p : "P" | "p" 
+
+q : "Q" | "q" 
+
+r : "R" | "r" 
+
+s : "S" | "s" 
+
+t : "T" | "t" 
+
+u : "U" | "u" 
+
+v : "V" | "v" 
+
+w : "W" | "w" 
+
+x : "X" | "x" 
+
+y : "Y" | "y" 
+
+eoi : "EOI"
+
+

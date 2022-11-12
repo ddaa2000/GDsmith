@@ -1,0 +1,21 @@
+-- Time: 2022/02/04 17:35:43
+-- Database: database2
+-- Database version: 
+-- seed value: 1643967341457
+CREATE (n0 :L1{k11:""}) RETURN *; -- 26ms;
+CREATE (n1 :L0{k0:true, k3:""}) RETURN *; -- 23ms;
+CREATE (n2 :L2{k14:true, k15:1581682346}) RETURN *; -- 25ms;
+CREATE (n3 :L2{k15:-1793847062}) RETURN *; -- 32ms;
+CREATE (n4 :L2{k14:true}) RETURN *; -- 24ms;
+CREATE (n5 :L0{k1:"jE"}) RETURN *; -- 26ms;
+CREATE (n6 :L1{k7:403052817, k8:true, k11:"ZRe"}) RETURN *; -- 26ms;
+CREATE (n7 :L2{k12:"", k14:false}) RETURN *; -- 27ms;
+CREATE (n8 :L3) RETURN *; -- 22ms;
+CREATE (n9 :L3{k21:"fT9pzJ"}) RETURN *; -- 28ms;
+MATCH (n1) WITH stDev(-1585662101) AS a0, max("am") AS a1 RETURN a0 ORDER BY a0; -- 33ms;
+MATCH (n1) WITH stDev(-1585662101) AS a0, max("am") AS a1 WITH * MATCH (n2) OPTIONAL MATCH (n3) RETURN a0; -- 37ms;
+MATCH (n0)-[r0 :T3 *1..]-(n1 :L3) OPTIONAL MATCH (n1) UNWIND [962217533, -75952424, (253951839+(1110166643*589714853))] AS a0 RETURN a0; -- 53ms;
+MATCH (n0) UNWIND [((-557087237*2022996893)*1284221468), -960594839, ((1898671100*1339496506)*(1089766539*-1992561249))] AS a0 RETURN a0; -- 31ms;
+MATCH (n1) WHERE ("Wo" <> "e0") WITH stDev(-1585662101) AS a0, max("am") AS a1 WHERE (false IS NOT NULL) WITH DISTINCT *, min("") AS a2, a0 RETURN DISTINCT a1 ORDER BY a1 DESC; -- 56ms;
+MATCH (n0) MATCH (n0)<-[r0 *..2]-(n1 :L0), (n2 :L2) MATCH (n0) RETURN 1; -- 42ms;
+MATCH (n0)<-[r0 :T4 *..2]-(n1) OPTIONAL MATCH (n1), (n1) WHERE ("a" STARTS WITH "1") MATCH (n1) WHERE (false OR true) RETURN 2; -- 45ms;
