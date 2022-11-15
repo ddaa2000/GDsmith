@@ -80,10 +80,12 @@ public class Compared1AlgorithmNew<S extends CypherSchema<G,?>, G extends Cypher
     }
 
     public void generateDatabase(G globalState) throws Exception{
+        //use a graph generator to generate guidance information for query generation so that the distribution of queries would be the same with other algorithms
         SlidingGraphGenerator<G,S> generator = new SlidingGraphGenerator<G,S>(globalState);
         this.graphManager = generator.getGraphManager();
         List<CypherQueryAdapter> queries = generator.createGraph(globalState);
 
+        //use another graph generator to generate graph-creating quereis so that the above guidance information will be wrong for the graph and be equivalent with no guidance
         SlidingGraphGenerator<G,S> graphGenerator = new SlidingGraphGenerator<>(globalState);
         queries = graphGenerator.createGraph(globalState);
         for(CypherQueryAdapter query : queries){

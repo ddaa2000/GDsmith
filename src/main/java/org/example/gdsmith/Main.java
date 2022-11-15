@@ -24,7 +24,6 @@ import org.example.gdsmith.janusGraph.JanusProvider;
 import org.example.gdsmith.memGraph.MemGraphProvider;
 import org.example.gdsmith.neo4j.Neo4jProvider;
 import org.example.gdsmith.tinkerGraph.TinkerProvider;
-import org.example.gdsmith.tugraph.TuGraphProvider;
 import org.example.gdsmith.agensGraph.AgensGraphProvider;
 import org.example.gdsmith.redisGraph.RedisGraphProvider;
 import jxl.Workbook;
@@ -609,7 +608,6 @@ public final class Main {
     public static List<DatabaseProvider<?, ?, ?>> getDBMSProviders() {
         if(providers.size()==0){
             providers.add(new Neo4jProvider());
-            providers.add(new TuGraphProvider());
             providers.add(new AgensGraphProvider());
             providers.add(new RedisGraphProvider());
             providers.add(new MemGraphProvider());

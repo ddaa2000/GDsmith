@@ -23,13 +23,6 @@ public class MainOptions {
     @Parameter(names = { "--num-tries" }, description = "Specifies after how many found errors to stop testing")
     private int totalNumberTries = 100; // NOPMD
 
-    @Parameter(names = { "--max-num-inserts" }, description = "Specifies how many INSERT statements should be issued")
-    private int maxNumberInserts = 30; // NOPMD
-
-    @Parameter(names = {
-            "--max-expression-depth" }, description = "Specifies the maximum depth of randomly-generated expressions")
-    private int maxExpressionDepth = 3; // NOPMD
-
     @Parameter(names = {
             "--num-queries" }, description = "Specifies the number of queries to be issued to a database before creating a new database")
     private int nrQueries = 1000; // NOPMD
@@ -44,17 +37,6 @@ public class MainOptions {
     @Parameter(names = "--log-execution-time", description = "Logs the execution time of each statement (requires --log-each-select to be enabled)", arity = 1)
     private boolean logExecutionTime = false; // NOPMD
 
-    @Parameter(names = "--username", description = "The user name used to log into the DBMS")
-    private String userName = "sqlancer"; // NOPMD
-
-    @Parameter(names = "--password", description = "The password used to log into the DBMS")
-    private String password = "sqlancer"; // NOPMD
-
-    @Parameter(names = "--host", description = "The host used to log into the DBMS")
-    private String host = null; // NOPMD
-
-    @Parameter(names = "--port", description = "The port used to log into the DBMS")
-    private int port = MainOptions.NO_SET_PORT; // NOPMD
 
     @Parameter(names = "--print-progress-information", description = "Whether to print progress information such as the number of databases generated or queries issued", arity = 1)
     private boolean printProgressInformation = true; // NOPMD
@@ -152,10 +134,6 @@ public class MainOptions {
         return labelNum;
     }
 
-    public int getMaxExpressionDepth() {
-        return maxExpressionDepth;
-    }
-
     public int getTotalNumberTries() {
         return totalNumberTries;
     }
@@ -193,28 +171,8 @@ public class MainOptions {
         return nrQueries;
     }
 
-    public int getMaxNumberInserts() {
-        return maxNumberInserts;
-    }
-
     public int getNrStatementRetryCount() {
         return nrStatementRetryCount;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public int getPort() {
-        return port;
     }
 
     public boolean printProgressInformation() {
@@ -239,10 +197,6 @@ public class MainOptions {
 
     public long getRandomSeed() {
         return randomSeed;
-    }
-
-    public boolean testAggregateFunctionsPQS() {
-        return testAggregateFunctions;
     }
 
     public boolean testOnlyWithMoreThanZeroRows() {

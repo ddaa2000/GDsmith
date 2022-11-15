@@ -13,8 +13,62 @@ Requirements:
 
 # Project Structure
 
-TBD
+* src
+    * main/java/org.example.gdsmith
+        * common:  infrastructure
+        * cypher
+          * ast/standard_ast: implementation of ast structure
+          * algorithm: algorithms for GDsmith
+            * Compared3AlgorithmNew.java: the original algorithm used by GDsmith
+            * Compared1AlgorithmNew.java: the algorithm used by the baseline1
+            * Compared2AlgorithmNew.java: the algorithm used by the baseline2
+          * gen: generators for queries, graphs, patterns, expressions
+            * condition
+              * GuidedConditionGenerator.java: the condition generator for GDsmith
+              * RandomConditionGenerator.java: the condition generator for baseline1 and baseline2
+            * graph
+              * SlidingGraphGenerator.java: the graph generator for GDsmith, baseline1 and baseline2 (baseline1 uses two generators to remove guidance strategy, see Compared1AlgorithmNew.java)
+            * expr
+              * NonEmptyExpressionGenerator.java: the expression generator for GDsmith
+              * RandomExpressionGenerator.java: the expression generator for baseline1 and baseline2
+          * oracle: oracles
+            * DifferentialNonEmptyBranchOracle.java: the differential oracle used by GDsmith, baseline1 and baseline2
+        * support for different databases[neo4j, redisGraph, memgraph, ...]
+* out: the executable jar file GDsmith.jar
 
+# Quick Start
+In this section we are going to do differential testing on MemGraph and RedisGraph.
+Run the docker images of MemGraph and RedisGraph:
+```shell
+docker run -d -p 7687:7687 -p 7444:7444 memgraph/memgraph:2.4.0 --query-execution-timeout-sec=1
+docker run -d -e REDISGRAPH_ARGS=\"TIMEOUT=1000\" -p 6379:6379 -it --rm redislabs/redisgraph:2.8.20
+```
+
+Create the file config.json and paste the following content:
+```json
+{
+  "memgraph@2.4.0": {
+    "port": 7687,
+    "host": "localhost",
+    "username": "neo4j",
+    "password": "sqlancer",
+    "restart-command": "docker run -d -p 7687:7687 -p 7444:7444 memgraph/memgraph:2.4.0 --query-execution-timeout-sec=1"
+  },
+  "redisgraph@2.8.17": {
+    "port": 6379,
+    "host": "localhost",
+    "username": "neo4j",
+    "password": "sqlancer",
+    "restart-command": "docker run -d -e REDISGRAPH_ARGS=\"TIMEOUT=1000\" -p 6379:6379 -it --rm redislabs/redisgraph:2.8.20"
+  }
+}
+```
+Then run the following command:
+```shell
+java -jar GDsmith.jar --algorithm compared3 --num-tries 100 -num-queries 1000 composite
+```
+The testing should begin, GDsmith will generate 100 graphs and for each graph it will generate 1000 queries.
+All the failures found will be recorded in ```logs``` directory.
 
 
 # Using GDsmith
@@ -28,16 +82,57 @@ java -jar GDsmith.jar [database] --[database_option1] --[database_option2] ...
 Here are some examples of database options:
 
 ```
---port 7687 			//the port of the database driver is 7687
---username xxx			//the user of the database is "xxx"
---password ###			//the password of the user is "####"
---oracle ORACLE_NAME	//use the oracle "ORACLE_NAME"
+--algorithm <algorithm-name> // the algorithm for testing
+--num-tries <num-tries> // the number of graphs to generate
+--num-queries <num-queries> // the number of queries generated for each graph
 ```
 
 For example, if you want to test Neo4j and use the crash oracle, you can use:
 
 ```bash
 java -jar GDsmith.jar neo4j --port 7687 --username xxx --password ### --oracle RANDOM_CRASH
+```
+
+For the ```composite``` database, as each database may use a different set of configurations, the configuraion for each database is specified in the ```config.json``` file:
+```json
+{
+  "neo4j@4.4.13": {
+    "port": 7687,
+    "host": "localhost",
+    "username": "neo4j",
+    "password": "sqlancer"
+  },
+  "neo4j@4.4.12": {
+    "port": 10101,
+    "host": "localhost",
+    "username": "neo4j",
+    "password": "sqlancer"
+  }
+}
+```
+GDsmith identify the name of the database by the key in the json file before the "@" character. For example "neo4j@4.4.12" tells neo4j to connect to a datbase using the Neo4j driver. So you can add multiple databases of the same database and name them freely as long as the database name before "@" is corresponded with the actual database:
+```json
+{
+  "neo4j@latest": {
+    "port": 7687,
+    "host": "localhost",
+    "username": "neo4j",
+    "password": "sqlancer"
+  },
+  "neo4j@optimization": {
+    "port": 10101,
+    "host": "localhost",
+    "username": "neo4j",
+    "password": "sqlancer"
+  },
+  "redisgraph@2.8.17": {
+    "port": 6379,
+    "host": "localhost",
+    "username": "neo4j",
+    "password": "sqlancer",
+    "restart-command": "docker run -d -e REDISGRAPH_ARGS=\"TIMEOUT=1000\" -p 6379:6379 -it --rm redislabs/redisgraph:2.8.20"
+  }
+}
 ```
 
 Notice that GDsmith will not automatically create database user, as a result, you might need to manually create a user and grant it with the privilege for remote connection, executing queries, writing to databases and creating/deleting new databases.
@@ -50,245 +145,5 @@ Here are the set of databases supported by GDsmith:
 neo4j
 redisgraph
 memgraph
-arcadedb
+compposite  \\ a special abstract database that represents multiple database instances used for differential tesing
 ```
-
-You can use these database names ([database]) to indicate which database you want to test.
-
-
-
-Presently we only support the crash oracle and the differential oracle. For the former one,  you can use "--oracle RANDOM_CRASH" to test a specific database. However, for differential testing, as you need to configure different databases, you need to use the virtual database name "composite" and use a configuration file the specify the configuration for each database.
-
-```bash
-java -jar GDsmith.jar composite --config [the relative path to the configuration file]
-```
-
-The configuration file in written in json form and is similar to the database_options, the difference is that you cannot specify an oracle for them.
-
-```json
-{
-  "neo4j@4.4.3": {
-    "port": 7687,
-    "host": "localhost",
-    "username": "neo4j",
-    "password": "sqlancer"
-  },
-  "redisgraph@2.4.11": {
-    "port": 6379,
-    "host": "localhost",
-    "username": "neo4j",
-    "password": "sqlancer"
-  }
-}
-```
-
-The root object of the json file is a dictionary, where the form of its key is "[database_name]@[identifier]". Here, the database_name has to be one database supported by GDsmith while the identifier is only used differentiate two databases with the same name. This means that GDsmith can test the same database with different versions or options as long as there names in the json dictionary is different:
-
-```json
-{
-  "neo4j@4.4.3": { /*the names must be identical*/
-    "port": 7687,  /*the ports must be identical*/
-    "host": "localhost",
-    "username": "neo4j",
-    "password": "####"
-  },
-  "neo4j@4.3.10": {
-    "port": 7689,
-    "host": "localhost",
-    "username": "neo4j1",
-    "password": "xxxx"
-  },
-  "neo4j@4.3.10_with_optimization": {
-    "port": 7690,
-    "host": "localhost",
-    "username": "neo4j5",
-    "password": "aaaa"
-  },
-  "neo4j@foo": {
-    "port": 7691,
-    "host": "localhost",
-    "username": "neo4j2",
-    "password": "bbbb"
-  }
-}
-```
-
-
-
-# Overview of GDsmith DSL
-
-GDsmith generate DSL programs and then translate them to cypher queries. This section presents the semantics of the DSL.
-
-Here we assume that a DSL interpreter is used, it takes in a schema, a database, a DSL program and output the result of the DSL program.
-
-In order to understand the GDsmith DSL, we explain it from two perspectives. The first is by using it to write queries like Cypher, the second is the way we use it to generate safe DSL which can be translated into cypher queries and these queries should not cause failures or undefined behaviors according to the cypher standard.
-
-
-
-## Using GDsmith DSL to Write Queries
-
-A DSL program is a sequence of operators. The execution of the DSL program is the process of the control point moving from the first operator to the last one. For each operator, it takes in the state generated passed from the former generator, changes the state and passes the new state to the next generator.
-
-Here, "state" stands for data, and the data is organized as variables. For the GDsmith DSL, a variable is a data vector. Next, we will use examples for further explanation.
-
-
-
-The match operator uses a pattern_tuple to match subgraphs in the database.
-
-```
-match(<pattern_tuple>, <where>)
-```
-
- Here is an example:
-
-```
-match(node1-relation1->node2, node2.name=="x")
-```
-
-All the subgraphs in the databases which matches the pattern node1-relation1->node2 where node2 has a property "name" equals "x" will be extracted from the database and form a data vector which represents the pattern, suppose the result is like this:
-
-```
-Pattern1 == [(n1-r1->n2),(n1-r2->n3),(n2-r3->n4)]
-```
-
-And the variables are:
-
-```
-node1 == [n1, n1, n2]
-node2 == [n2, n3, n4]
-relation1 == [r1, r2, r3]
-```
-
-So the state passed to the next operator is:
-
-```
-state = {[(node1-relation1->node2)]} == {[(n1-r1->n2),(n1-r2->n3),(n2-r3->n4)]}
-```
-
- Suppose the next operator is also a match operator:
-
-```
-match(node1-relation2->node3, node3.id==10)
-```
-
-For node1 is already defined, it will now be considered as a variable reference. hence, all the subgraphs in the databases which matches the pattern a-b->c->d (where "a" must be a node in vector node1, and node3 must has a property named id equals 10), suppose the result is like this:
-
-```
-Pattern2 == [(n1-r4->n5)]
-```
-
-And the state passed to the next operator should be:
-
-```
-state = {[node1-relation1->node2]x[node1-relation2->node3]} == Pattern1 x Pattern2 = {[(n1-r1->n2),(n1-r2->n3),(n2-r3->n4)] x [(n1-r4->n5)]} == {[(n1-r1->n2) x (n1-r4->n5), (n1-r2->n3) x (n1-r4->n5)]}
-```
-
-(For why the calculation works like this, please refer to the open-Cypher documentation)
-
-So in a high level,  the DSL operator is just used to transform a set of variables into a new set of variables, though its rule is complicated due to the semantic richness of open-Cypher.
-
-
-
-## Using DSL as a Tool to Model Cypher Semantics
-
-Though the semantics of Cypher is complicated, we can use the GDsmith DSL to reduce the semantics that are not important for generating correct and undefined-behavior-free Cypher. We use a "local environment" to model the semantics of the DSL, it has following features:
-
-​	Each operator has a local environment which is determined by all former operators.
-
-​	Given the local environment and the present operator, the local environment of the next operator can be calculated.
-
-​	A rule can be used to judge whether the operator satisfies the local environment, if all operators satisfy their own local environments, the DSL program can be translated into a correct and undefined-behavior-free Cypher query.
-
-
-
-The local environment is formed by:
-
-​	A set of usable variables.
-
-​	A set of facts can be used to calculate the type and property info of variables.
-
-
-
-Here are examples of local environment transition:
-
-```
-match(n1[label1]-r1->n2[label2, label3], true)
-before:
-{
-	variables: {}
-	facts: {}
-}
-after:
-{
-	variables: {n1, r1, n2}
-	facts: {
-		label(n1)=={label1}, label(n2)=={label2, label3},
-		type(n1)==node, type(n2)==node, type(r1)==relationship
-	}
-}
-```
-
-```
-match(n1[label1]-r1->n2[label2, label3], true) match(n1[label4], true)
-//for the second operator:
-before:
-{
-	variables: {n1, r1, n2}
-	facts: {label(n1)=={label1}, label(n2)=={label2, label3}}
-}
-after:
-{
-	variables: {n1, r1, n2}
-	facts: {
-		label(n1)=={label1, label4}, label(n2)=={label2, label3},
-		type(n1)==node, type(n2)==node, type(r1)==relationship
-	}
-}
-```
-
-```
-match(n1[label1]-r1->n2[label2, label3], true) with(a=n1.name, n1.id==5)
-//for the second operator:
-//suppose that we know from our schema that nodes with label1 has an integer property named "id" and a string property named "name"
-before:
-{
-	variables: {n1, r1, n2}
-	facts: {label(n1)=={label1}, label(n2)=={label2, label3}}
-}
-after:
-{
-	variables: {a}
-	facts: {
-		type(a)==string
-	}
-}
-```
-
-
-
-Here are the transitions for each operator:
-
-```
-match(pattern_tuple, where)
-after.variables = before.variables union get_new_variables(pattern_tuple)
-after.facts.label_facts = before.facts.label_facts union get_label_facts(pattern_tuple)
-after.facts.type_facts = before.facts.type_facts union get_new_variables(pattern_tuple).map(v-> if v is node then return type(v)==node else return type(v)==relationship)
-
-
-with(alias_def_tuple, order, skip, limit, where)
-after.variables = get_new_variables(pattern_tuple)
-after.facts.label_facts = (before.facts.label_facts union get_label_facts(alias_def_tuple)).filter(fact -> variable(fact) is still in after.variables)
-after.facts.type_facts = (before.facts.type_facts union get_new_variables(pattern_tuple)).map(v-> return calculate_type(v.expr)).filter(fact -> variable(fact) is still in after.variables)
-
-unwind(expr as v)
-after.variables = before.variables union {v}
-after.facts.label_facts = before.facts.label_facts
-after.facts.type_facts = before.facts.type_facts union {type(v)==expr.type.list_element_type}
-
-return(alias_def_tuple, order, skip, limit)
-//same as with
-after.variables = get_new_variables(pattern_tuple)
-after.facts.label_facts = (before.facts.label_facts union get_label_facts(alias_def_tuple)).filter(fact -> variable(fact) is still in after.variables)
-after.facts.type_facts = (before.facts.type_facts union get_new_variables(pattern_tuple)).map(v-> return calculate_type(v.expr)).filter(fact -> variable(fact) is still in after.variables)
-```
-
