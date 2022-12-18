@@ -35,10 +35,15 @@ Requirements:
             * DifferentialNonEmptyBranchOracle.java: the differential oracle used by GDsmith, baseline1 and baseline2
         * support for different databases[neo4j, redisGraph, memgraph, ...]
 * out: the executable jar file GDsmith.jar
+* NewExperiment: the experiment results.
+    * compare123.ipynb: get the version-distinct number of discrepancies
+    * compare123.svg: the result of compare123.ipynb
+
 
 # Quick Start
 In this section we are going to do differential testing on MemGraph and RedisGraph.
 Run the docker images of MemGraph and RedisGraph:
+
 ```shell
 docker run -d -p 7687:7687 -p 7444:7444 memgraph/memgraph:2.4.0 --query-execution-timeout-sec=1
 docker run -d -e REDISGRAPH_ARGS=\"TIMEOUT=1000\" -p 6379:6379 -it --rm redislabs/redisgraph:2.8.20
@@ -147,3 +152,13 @@ redisgraph
 memgraph
 compposite  \\ a special abstract database that represents multiple database instances used for differential tesing
 ```
+
+
+
+# Experiment
+
+In the paper we run GDsmith for 12 hours on Neo4j-3.5.0 and compare the result with Neo4j-4.4.12 and we further get version-distinct discrepancy number by running the these discrepancy-revealing graphs and queries on multiple versions between Neo4j-3.5.0 and Neo4j-4.4.12. The results can be seen on our paper.
+
+In addition, we run GDsmith for 12 hours on Neo4j-3.5.0, Neo4j-4.0.0, Neo4j-4.1.0, Neo4j-4.2.0, Neo4j-4.3.0 and Neo4j-4.4.0. We compare the results with Neo4j-4.4.12. We divide the experiment into 3 groups (which is [Neo4j-3.5.0], [Neo4j-4.0.0, Neo4j-4.1.0, Neo4j-4.2.0], [Neo4j-4.3.0, Neo4j-4.4.0]) and we run each group for 12 hours. Then we compare the results on multiple versions between Neo4j-3.5.0 and Neo4j-4.4.12 to get the version-distinct discrepancy number. We believe this experiment can reveal more precise results as more version are chosen during testing. The results are shown in NewExperiment/compare123.svg.
+
+We also run GDsmith on old versions of RedisGraph and MemGraph. However we don't get the version-distinct discrepancy number of them because there are too many discrepancies and it takes to much time to re-run them on all old versions.

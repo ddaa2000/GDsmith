@@ -1,0 +1,1 @@
+MATCH (n0 :L0)-[r0 :T0]->(n1 :L0) WHERE ((r0.id) > -1) UNWIND [(n1.k5), (n1.k5)] AS a0 UNWIND [-1792599] AS a1 OPTIONAL MATCH (n4 :L0) OPTIONAL MATCH (n1 :L0)<-[]-(n3)<-[]-(n4 :L1 :L3) RETURN a0, (r0.k35) AS a2, (n1.k2) AS a3, (r0.k34) AS a4, (r0.k39) AS a5 ORDER BY a2, a4, a5 DESC

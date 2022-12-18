@@ -1,0 +1,1 @@
+MATCH (n0) WITH DISTINCT * WHERE true OPTIONAL MATCH (n0)-[r2 :T1]->(n3 :L4) WHERE ((r2.k49) <= (r2.k49)) OPTIONAL MATCH (n4)-[r3 :T0]->(n5 :L6 :L0 :L3)-[r4 :T0]->(n6 :L3) WHERE (((r3.id) > -1) AND ((r3.id) <> (r4.id))) RETURN (n6.k17) AS a0

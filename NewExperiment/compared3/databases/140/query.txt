@@ -1,0 +1,2 @@
+MATCH (n1 :L1 :L3) MATCH (n3 :L0)<-[r2 :T4]-(n4 :L2), (n7)<-[r5 :T0]-(n3) WHERE ((NOT (r5.k36)) AND ((r2.id) <> (r5.id))) OPTIONAL MATCH (n8 :L5), (n9 :L4)-[r6 :T4]->(n10 :L1)-[r7 :T0]->(n11 :L2 :L3 :L5), (n8 :L5) WHERE ((n3.k3) AND ((r6.id) <> (r7.id))) OPTIONAL MATCH (n12)-[r8 :T0]->(n2), (n8) WHERE ((r8.id) > -1) RETURN (n3.k0) AS a0, (r8.k39) AS a1
+MATCH (n2) UNWIND [1837741042, -641588827, 1645469566] AS a0 WITH DISTINCT * WHERE (false OR true) RETURN DISTINCT sum(1739225650) AS a1 ORDER BY a1 DESC

@@ -1,0 +1,1 @@
+MATCH (n0 :L0) UNWIND [(n0.k0)] AS a0 OPTIONAL MATCH (n5 :L4 :L5), (n3 :L2)<-[r4 :T1]-(n6 :L0)-[r5 :T1]->(n7 :L4) WHERE ((true OR (n6.k4)) AND ((r4.id) <> (r5.id))) RETURN DISTINCT (n3.k15) AS a1

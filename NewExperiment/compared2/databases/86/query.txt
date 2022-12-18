@@ -1,0 +1,1 @@
+MATCH (n1 :L5), (n2)<-[r2 :T2]-(n3 :L5) WHERE (r2.k55) OPTIONAL MATCH (n4 :L3), (n5)-[r3 :T3]->(n1 :L5) WHERE ((r3.id) > -1) OPTIONAL MATCH (n1 :L5)-[]->(n2)<-[]-(n3), (n4 :L3) WHERE ((n3.k31) > (r3.k60)) OPTIONAL MATCH (n0 :L6)-[r4 :T0]->(n0 :L6) WHERE ((r4.id) > -1) OPTIONAL MATCH (n4) WHERE (n4.k21) RETURN 0 AS a0

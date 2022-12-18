@@ -1,0 +1,1 @@
+MATCH (n1 :L2)-[r1 :T4]->(n2 :L3), (n3) WHERE ((r1.id) > -1) UNWIND [(n2.k21), 1487745824, 1880725437] AS a0 OPTIONAL MATCH (n5 :L2 :L4) OPTIONAL MATCH (n3) OPTIONAL MATCH (n0)<-[r4 :T0]-(n6 :L3), (n3), (n7 :L4)-[r5 :T0]->(n2) WHERE (((n2.k24) >= (r4.k50)) AND ((r4.id) <> (r5.id))) RETURN (n2.k25) AS a1, a0, (n7.k30) AS a2

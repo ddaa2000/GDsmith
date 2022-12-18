@@ -1,0 +1,1 @@
+MATCH (n0 :L2), (n0 :L2), (n0) WITH max(-1641682699) AS a0 OPTIONAL MATCH (n0) WHERE (NOT true) OPTIONAL MATCH (n0 :L2), (n0) WHERE (NOT (n0.k15)) OPTIONAL MATCH (n0) WHERE (false OR true) WITH n0, max('') AS a1, a0 MATCH (n0), (n0), (n0) RETURN DISTINCT a1, a0

@@ -1,0 +1,1 @@
+MATCH (n0 :L4 :L5), (n0), (n0 :L5) WHERE true UNWIND [(n0.k24), 1427833481, (n0.k27)] AS a0 MATCH (n0 :L5), (n0) WITH a0, n0 ORDER BY (n0.k33), a0 OPTIONAL MATCH (n0), (n0 :L5) OPTIONAL MATCH (n1 :L4), (n0), (n0 :L4) WHERE ((n0.k30) < (n0.k29)) RETURN a0

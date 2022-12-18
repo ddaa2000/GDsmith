@@ -1,0 +1,1 @@
+MATCH (n0 :L1 :L2)<-[r0 :T1]-(n1 :L5)<-[r1 :T6]-(n2), (n4 :L5) WHERE (((r0.id) > -1) AND ((r0.id) <> (r1.id))) MATCH (n3 :L1)-[]->(n2)<-[]-(n4) WHERE (NOT true) WITH max('OiplVgpd9') AS a0 ORDER BY a0 WHERE (true AND true) WITH * WHERE (176658943 > -682822415) OPTIONAL MATCH (n2)-[]->(n1 :L5)-[]->(n0 :L2), (n2)-[r4 :T5]->(n2) WHERE ((r4.id) > -1) RETURN (n0.k12) AS a1

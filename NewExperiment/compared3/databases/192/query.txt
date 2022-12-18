@@ -1,0 +1,1 @@
+MATCH (n0 :L1 :L5)-[r0 :T4]->(n1 :L6)-[r1 :T0]->(n2) WHERE ((NOT (r0.k71)) AND ((r0.id) <> (r1.id))) UNWIND [-497683551] AS a0 OPTIONAL MATCH (n5 :L2) WHERE ((n5.k18) <= 1350401093) OPTIONAL MATCH (n0 :L5)<-[r4 :T4]-(n1), (n7 :L3 :L6) WHERE ((r4.id) > -1) WITH DISTINCT n7 WHERE ((n7.k38) ENDS WITH (n7.k25)) RETURN (n7.k38) AS a1

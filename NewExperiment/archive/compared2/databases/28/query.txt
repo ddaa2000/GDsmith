@@ -1,0 +1,1 @@
+MATCH (n1 :L1), (n3 :L0)<-[r2 :T5]-(n4) WHERE ((r2.id) > -1) OPTIONAL MATCH (n6 :L3), (n6), (n6) WHERE (588459720 > 757079570) WITH n6, max('9aolFpP') AS a0 WHERE (-1863059226 < 1729851579) OPTIONAL MATCH (n6), (n3)-[r4 :T5]->(n2) WHERE ((r4.k63) <> (r4.k65)) RETURN (r4.k62) AS a1

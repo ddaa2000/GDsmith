@@ -1,0 +1,1 @@
+MATCH (n0 :L2 :L3), (n0), (n1 :L0) WITH (n0.k16) AS a0, n0, (n0.k14) AS a1, (n0.k16) AS a2 WHERE (NOT false) OPTIONAL MATCH (n1) OPTIONAL MATCH (n0 :L2 :L3), (n0 :L2) WHERE ((n0.k18) ENDS WITH (n0.k18)) RETURN DISTINCT avg(1815845780) AS a3, (n0.k13) AS a4

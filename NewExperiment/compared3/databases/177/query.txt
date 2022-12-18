@@ -1,0 +1,1 @@
+MATCH (n0 :L3 :L4), (n0 :L4) UNWIND [(n0.k24), (n0.k21)] AS a0 WITH a0, min('70K') AS a1 ORDER BY a1 WITH min('') AS a2, max('fiBf') AS a3 ORDER BY a2 WHERE (true OR true) MATCH (n0) WHERE true WITH DISTINCT * WHERE true RETURN 0 AS a4

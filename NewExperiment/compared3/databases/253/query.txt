@@ -1,0 +1,1 @@
+MATCH (n0 :L0), (n0 :L0), (n1 :L2 :L4 :L5) UNWIND [850802624] AS a0 OPTIONAL MATCH (n1 :L2 :L4 :L5), (n2 :L2 :L4)<-[r0 :T1]-(n3 :L1 :L0) WHERE ((n1.k31) <= 'kt') OPTIONAL MATCH (n0), (n0) RETURN (r0.k47) AS a1, (r0.k48) AS a2 ORDER BY a1 DESC

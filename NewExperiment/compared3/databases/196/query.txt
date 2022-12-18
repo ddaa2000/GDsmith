@@ -1,0 +1,1 @@
+MATCH (n2 :L3 :L1) WITH min('n') AS a0, n2 OPTIONAL MATCH (n2)-[r2 :T4]->(n3 :L0 :L2), (n4)<-[r3 :T3]-(n0) WHERE (((r2.id) > -1) AND ((r2.id) <> (r3.id))) OPTIONAL MATCH (n1 :L1)-[]->(n2)-[]->(n3 :L0) WITH r2, (n3.k5) AS a1, n3 OPTIONAL MATCH (n1)-[]->(n2)-[]->(n3 :L0) WHERE ((r2.k57) > (r2.k53)) RETURN min('Hl2lfO') AS a2, a1

@@ -1,0 +1,2 @@
+MATCH (n0 :L1) WHERE (n0.k9) UNWIND [(n0.k6), 943707861] AS a0 WITH * WHERE ((n0.k5) <= 'q7Nx1D') WITH (n0.k5) AS a1 WHERE (true OR true) UNWIND [-703026948, -1887808995, -486208750] AS a2 WITH DISTINCT * WHERE true OPTIONAL MATCH (n0), (n1 :L1)-[r0 :T6]->(n2 :L2)<-[r1 :T3]-(n3 :L2 :L3), (n0) WHERE (((r0.id) > -1) AND ((r0.id) <> (r1.id))) RETURN (n2.k11) AS a3, (r0.k70) AS a4
+MATCH (n1) WHERE true WITH DISTINCT * WHERE true RETURN 0 AS a0

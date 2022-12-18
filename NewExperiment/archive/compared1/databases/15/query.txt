@@ -1,0 +1,1 @@
+MATCH (n0 :L2 :L0), (n0 :L0) OPTIONAL MATCH (n1 :L2 :L4 :L0)-[r0 :T2]->(n2 :L1)<-[r1 :T2]-(n3 :L0) WHERE (((r0.id) > -1) AND ((r0.id) <> (r1.id))) WITH DISTINCT (r1.k41) AS a0, n0, (r1.k45) AS a1 WHERE (n0.k15) UNWIND [(n0.k17), 1186496179, -794339974] AS a2 WITH * WHERE (true OR (n0.k13)) MATCH (n0), (n0 :L0), (n0) WHERE ((n0.k0) AND (n0.k0)) RETURN (n0.k2) AS a3

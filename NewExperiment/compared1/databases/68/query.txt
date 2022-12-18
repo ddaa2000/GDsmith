@@ -1,0 +1,1 @@
+MATCH (n2), (n2 :L6)-[r2 :T3]->(n2) WHERE ((r2.k60) STARTS WITH '') OPTIONAL MATCH (n3 :L1 :L0 :L3), (n4 :L1 :L5)<-[r3 :T0]-(n0) WHERE ((r3.id) > -1) OPTIONAL MATCH (n1)-[]->(n2)-[]->(n2) RETURN (r2.k60) AS a0, (r3.k41) AS a1, (n3.k5) AS a2

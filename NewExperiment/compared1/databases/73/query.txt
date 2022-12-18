@@ -1,0 +1,1 @@
+MATCH (n0)<-[r0 :T3]-(n1) WHERE ((r0.k57) OR (r0.k57)) MATCH (n2 :L5) WITH (n2.k33) AS a0, (r0.k56) AS a1, min('auBRjTx8') AS a2 WHERE (false OR a0) WITH min('FDUjc') AS a3 WHERE true OPTIONAL MATCH (n0 :L3)<-[]-(n1) RETURN DISTINCT (n0.k20) AS a4, (n0.k20) AS a5 ORDER BY a4, a5

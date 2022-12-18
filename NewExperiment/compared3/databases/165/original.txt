@@ -1,0 +1,2 @@
+/home/huaziyue/all-envs/experiment-result/test-env-2/logs-1/composite/database22-32.log
+/home/huaziyue/all-envs/experiment-result/test-env-2/logs-1/composite/database22-8.log

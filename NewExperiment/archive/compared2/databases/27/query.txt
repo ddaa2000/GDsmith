@@ -1,0 +1,1 @@
+MATCH (n0 :L1 :L3), (n0) WHERE ((n0.k20) IS NOT NULL) WITH (n0.k22) AS a0 WHERE (true OR true) MATCH (n2 :L1) WHERE (n2.k9) WITH DISTINCT min('') AS a1 WHERE (a1 <= a1) OPTIONAL MATCH (n3 :L4)-[]->(n2 :L1)-[]->(n1 :L1) WHERE (n1.k9) RETURN DISTINCT (n2.k10) AS a2, a1

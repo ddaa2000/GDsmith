@@ -1,0 +1,1 @@
+MATCH (n0 :L2)-[r0 :T2]->(n1 :L5)<-[r1 :T2]-(n2 :L4) WHERE (((n2.k25) >= (n0.k15)) AND ((r0.id) <> (r1.id))) WITH n2, (n1.k35) AS a0 MATCH (n4) MATCH (n3 :L6 :L1)<-[]-(n4)-[]->(n5), (n3)-[r4 :T2]->(n3), (n1 :L5) WHERE ((r4.id) > -1) UNWIND [2057952128, 2057952128] AS a1 RETURN DISTINCT (r4.k55) AS a2, a1
