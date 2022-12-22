@@ -1,74 +1,8 @@
 {
-  /*"neo4j@4.4.9": {
+  "neo4j@4.4.12": {
     "port": 7687,
-    "host": "localhost",
-    "username": "neo4j",
-    "password": "sqlancer"
-  }*/
-  /*"neo4j@4.3.10": {
-    "port": 7689,
-    "host": "localhost",
-    "username": "neo4j",
-    "password": "sqlancer"
-  },
-  "neo4j@4.2.14": {
-    "port": 7691,
     "host": "localhost",
     "username": "neo4j",
     "password": "sqlancer"
   }
-  "neo4j@4.1.11": {
-    "port": 7693,
-    "host": "localhost",
-    "username": "neo4j",
-    "password": "sqlancer"
-  },
-  "neo4j@3.5.30": {
-    "port": 7695,
-    "host": "localhost",
-    "username": "neo4j",
-    "password": "sqlancer"
-  },
-  "memgraph@2.1.1": {
-    "port": 7687,
-    "host": "localhost",
-    "username": "neo4j",
-    "password": "sqlancer"
-  },
-  "redisgraph@2.8.15": {
-    "port": 6379,
-    "host": "localhost",
-    "username": "neo4j",
-    "password": "sqlancer"
-  },*/
-  "agensgraph@2.13.0": {
-    "port": 15432,
-    "host": "localhost",
-    "username": "postgres",
-    "password": "sqlancer"
-  }/*,
-  "janusgraph@0.6.0": {
-    "port": 8182,
-    "host": "localhost",
-    "username": "Janus",
-    "password": "sqlancer"
-  },*/
-  /*"tinkergraph@3.4.13": {
-    "port": 8182,
-    "host": "localhost",
-    "username": "Tinker",
-    "password": "sqlancer"
-  }*/
-//  "redisgraph@2.10.1": {
-//    "port": 6379,
-//    "host": "localhost",
-//    "username": "neo4j",
-//    "password": "sqlancer"
-//  },
-//  "memgraph@2.3.1": {
-//    "port": 7687,
-//    "host": "localhost",
-//    "username": "neo4j",
-//    "password": "sqlancer"
-//  }
 }

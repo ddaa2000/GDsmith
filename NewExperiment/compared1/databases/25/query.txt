@@ -1,1 +1,0 @@
-MATCH (n1)-[r1 :T0]->(n2) WHERE ((r1.id) > -1) OPTIONAL MATCH (n4 :L3)<-[r3 :T0]-(n5 :L4), (n0)-[r4 :T0]->(n6 :L1) WHERE (((r3.id) > -1) AND ((r3.id) <> (r4.id))) RETURN DISTINCT (r4.k42) AS a0

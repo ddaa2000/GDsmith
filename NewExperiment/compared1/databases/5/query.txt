@@ -1,1 +1,0 @@
-MATCH (n0 :L0) WHERE (false AND (n0.k4)) WITH min('ul') AS a0, min('p') AS a1 WHERE (true OR true) WITH min('qVxJ9tZHn') AS a2, min('0Eem') AS a3 WHERE true OPTIONAL MATCH (n0)-[]->(n1 :L0 :L1)-[]->(n2), (n3)-[r2 :T4]->(n4 :L4)-[r3 :T5]->(n5 :L2), (n6) WHERE (((n5.k17) >= (n1.k7)) AND ((r2.id) <> (r3.id))) WITH DISTINCT r3 WHERE ((r3.k66) AND (r3.k67)) RETURN DISTINCT 2 AS a4

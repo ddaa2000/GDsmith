@@ -1,1 +1,0 @@
-MATCH (n0) UNWIND [-210109034, -723512160, -210109034] AS a0 OPTIONAL MATCH (n1 :L1), (n2)<-[r0 :T3]-(n3 :L4) WHERE ((r0.id) > -1) WITH avg(-477959682) AS a1, n1, max('Fh') AS a2, a0 MATCH (n4)<-[]-(n5) MATCH (n1), (n1) RETURN a0 ORDER BY a0 DESC

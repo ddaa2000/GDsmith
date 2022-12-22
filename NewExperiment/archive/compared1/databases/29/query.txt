@@ -1,1 +1,0 @@
-MATCH (n0 :L1)-[r0 :T4]->(n1) WHERE ((r0.id) > -1) WITH (r0.k64) AS a0, min('R6') AS a1, max('n5') AS a2, (r0.k61) AS a3 WHERE (true AND true) OPTIONAL MATCH (n3 :L2 :L4)-[r2 :T1]->(n4 :L1 :L3)<-[r3 :T1]-(n5 :L1), (n6)-[r4 :T1]->(n2) WHERE (((((r2.k46) IS NOT NULL) AND ((r2.id) <> (r3.id))) AND ((r2.id) <> (r4.id))) AND ((r3.id) <> (r4.id))) RETURN DISTINCT (r2.k46) AS a4, a2

@@ -1,1 +1,0 @@
-MATCH (n0 :L2 :L4), (n0 :L2), (n0 :L2) WHERE ('4S' <> 'Yk') UNWIND [(n0.k17), -545622284, (n0.k17)] AS a0 OPTIONAL MATCH (n2 :L6 :L3)<-[r1 :T1]-(n3 :L1) WHERE (n3.k8) RETURN DISTINCT a0, (r1.k55) AS a1 ORDER BY a0

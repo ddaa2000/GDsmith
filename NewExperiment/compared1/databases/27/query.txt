@@ -1,1 +1,0 @@
-MATCH (n0 :L0 :L1) WHERE ((n0.k11) < (n0.k1)) OPTIONAL MATCH (n1 :L0), (n1 :L0), (n3 :L1)-[r1 :T4]->(n4 :L1 :L3 :L0) WHERE ((r1.id) > -1) RETURN DISTINCT (n3.k9) AS a0

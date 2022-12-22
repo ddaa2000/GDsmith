@@ -1,1 +1,0 @@
-MATCH (n0 :L0) WHERE (NOT true) WITH n0 WHERE ((n0.k2) OR (n0.k2)) WITH min('6bQCe') AS a0 WHERE (true OR false) OPTIONAL MATCH (n0) WHERE (NOT true) OPTIONAL MATCH (n1), (n1), (n0) WHERE true RETURN 2 AS a1

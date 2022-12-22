@@ -1,1 +1,0 @@
-/home/huaziyue/all-envs/experiment-result/test-env-1/logs-1/composite/database11-48.log

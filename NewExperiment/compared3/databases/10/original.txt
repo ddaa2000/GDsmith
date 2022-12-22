@@ -1,5 +1,0 @@
-/home/huaziyue/all-envs/experiment-result/test-env-1/logs-0/composite/database10-44.log
-/home/huaziyue/all-envs/experiment-result/test-env-1/logs-0/composite/database10-20.log
-/home/huaziyue/all-envs/experiment-result/test-env-1/logs-0/composite/database10-21.log
-/home/huaziyue/all-envs/experiment-result/test-env-1/logs-0/composite/database10-29.log
-/home/huaziyue/all-envs/experiment-result/test-env-1/logs-0/composite/database10-52.log

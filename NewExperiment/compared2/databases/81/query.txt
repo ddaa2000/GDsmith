@@ -1,1 +1,0 @@
-MATCH (n1 :L2)-[r1 :T4]->(n2), (n2)-[r2 :T2]->(n2) WHERE (((r1.id) > -1) AND ((r1.id) <> (r2.id))) MATCH (n0)-[]->(n1)-[]->(n2) WHERE ((r1.k67) IS NOT NULL) UNWIND [-637797894, -782072583, -1662718862] AS a0 RETURN max(-1599485953) AS a1, a0, (r1.k67) AS a2

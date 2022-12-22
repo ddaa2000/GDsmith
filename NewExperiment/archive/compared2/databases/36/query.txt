@@ -1,1 +1,0 @@
-MATCH (n0)-[r0 :T4]->(n1 :L4), (n5 :L3) WHERE ((r0.k70) > (n5.k22)) OPTIONAL MATCH (n6 :L2 :L0 :L5)-[r4 :T4]->(n7 :L0 :L3)-[r5 :T1]->(n8 :L3) WHERE (((r4.id) > -1) AND ((r4.id) <> (r5.id))) WITH DISTINCT (r5.k55) AS a0 WHERE ('No1GM' <> '') RETURN a0

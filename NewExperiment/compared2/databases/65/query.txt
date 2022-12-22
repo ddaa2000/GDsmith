@@ -1,1 +1,0 @@
-MATCH (n0 :L3 :L2 :L5), (n0), (n0) WITH DISTINCT * WHERE true OPTIONAL MATCH (n0 :L3), (n0) OPTIONAL MATCH (n0 :L3), (n0 :L5) WITH n0, (n0.k21) AS a0, min('') AS a1 ORDER BY (n0.k32), a1 WHERE ((n0.k36) IS NULL) RETURN (n0.k36) AS a2, (n0.k32) AS a3, (n0.k35) AS a4

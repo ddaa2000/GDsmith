@@ -1,1 +1,0 @@
-MATCH (n0 :L0), (n0) OPTIONAL MATCH (n0), (n0), (n0) WITH DISTINCT * WHERE (false OR true) RETURN 2 AS a0

@@ -1,1 +1,0 @@
-MATCH (n0)<-[r0 :T6]-(n1) WHERE ((r0.id) > -1) OPTIONAL MATCH (n0)<-[]-(n1) WHERE ((r0.k75) ENDS WITH (r0.k75)) OPTIONAL MATCH (n0)<-[]-(n1) WHERE ('TW' <> (r0.k75)) OPTIONAL MATCH (n0)<-[]-(n1) WHERE (r0.k76) OPTIONAL MATCH (n0)<-[]-(n1) OPTIONAL MATCH (n0)<-[]-(n1) WHERE (r0.k74) WITH n0 WHERE true WITH DISTINCT * WHERE true OPTIONAL MATCH (n0)<-[]-(n1) RETURN 1 AS a0

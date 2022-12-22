@@ -1,1 +1,0 @@
-MATCH (n1 :L2)-[r1 :T2]->(n2 :L4) WHERE ((r1.k42) > (n2.k29)) UNWIND [-1355293479, -152499858, (n2.k29)] AS a0 OPTIONAL MATCH (n1 :L2)<-[r2 :T6]-(n3), (n6 :L0) WHERE ((r2.id) > -1) OPTIONAL MATCH (n0 :L1)<-[]-(n1 :L2)-[]->(n2) RETURN (n1.k17) AS a1, a0, (r1.k42) AS a2, (n6.k5) AS a3

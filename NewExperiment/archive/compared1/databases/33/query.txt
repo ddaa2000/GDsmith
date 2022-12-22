@@ -1,1 +1,0 @@
-MATCH (n2 :L1) OPTIONAL MATCH (n3 :L2)-[r2 :T2]->(n4 :L2)<-[r3 :T1]-(n5 :L5), (n0)<-[r4 :T0]-(n6 :L5 :L2)<-[r5 :T1]-(n7 :L2) WHERE (((((((r4.k41) AND ((r2.id) <> (r3.id))) AND ((r2.id) <> (r4.id))) AND ((r2.id) <> (r5.id))) AND ((r3.id) <> (r4.id))) AND ((r3.id) <> (r5.id))) AND ((r4.id) <> (r5.id))) RETURN DISTINCT (n6.k32) AS a0, (n2.k10) AS a1

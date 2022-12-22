@@ -1,4 +1,0 @@
-/home/huaziyue/all-envs/experiment-result/test-env-2/logs-2/composite/database30-43.log
-/home/huaziyue/all-envs/experiment-result/test-env-2/logs-2/composite/database30-12.log
-/home/huaziyue/all-envs/experiment-result/test-env-2/logs-2/composite/database30-44.log
-/home/huaziyue/all-envs/experiment-result/test-env-2/logs-2/composite/database30-10.log

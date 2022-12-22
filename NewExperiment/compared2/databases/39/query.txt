@@ -1,1 +1,0 @@
-MATCH (n0)<-[r0 :T2]-(n1 :L1 :L0), (n3 :L2)<-[r2 :T4]-(n4) WHERE ((n1.k7) AND ((r0.id) <> (r2.id))) WITH * WHERE (n1.k3) WITH min('') AS a0, n4 WHERE true WITH DISTINCT * WHERE (true OR true) UNWIND [-968372118] AS a1 UNWIND [-672502108, -532860361] AS a2 RETURN a1

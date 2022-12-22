@@ -1,1 +1,0 @@
-MATCH (n1) WITH DISTINCT * WHERE (true AND true) RETURN 2 AS a0

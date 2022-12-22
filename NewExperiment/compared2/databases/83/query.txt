@@ -1,1 +1,0 @@
-MATCH (n1)-[r1 :T5]->(n2), (n0)-[r2 :T6]->(n0 :L1) WHERE (((r2.k76) > (r1.k71)) AND ((r1.id) <> (r2.id))) WITH r2 WHERE ((r2.k76) < 585240212) OPTIONAL MATCH (n0)-[]->(n1)-[]->(n2), (n0)<-[r3 :T3]-(n3 :L2) WHERE ((r3.k52) < (r3.k53)) WITH (r3.k55) AS a0 WHERE a0 UNWIND [-1081678116] AS a1 UNWIND [-515465390, -1418178595] AS a2 RETURN 1 AS a3

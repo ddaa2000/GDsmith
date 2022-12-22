@@ -1,1 +1,0 @@
-MATCH (n0 :L0 :L4)-[r0 :T1]->(n1 :L1) WHERE ((r0.id) > -1) WITH min('U34GEBM') AS a0, r0 ORDER BY a0 WHERE (false OR true) WITH a0, min('R') AS a1, r0 WHERE (true OR true) OPTIONAL MATCH (n3 :L1)-[r2 :T0]->(n2), (n4 :L3)<-[r3 :T0]-(n5 :L5) WHERE (((n3.k7) > (r2.k36)) AND ((r2.id) <> (r3.id))) RETURN DISTINCT (r3.k33) AS a2, a1, (r3.k34) AS a3, a0 ORDER BY a2, a0 DESC
