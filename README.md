@@ -171,7 +171,7 @@ After the above mapping, we can ensure that ```(n3 :L1)<-[r3 :R2]-(n0 :L0)-[r0 :
 
 Another important thing for pattern generation is that we will record the value of node and relationship variables in the table Vals. Specifically, we record the labels and property values of each of them. The Vals table will be used for condition generation. Here we only record the values based on our mapping from the property graph to the patterns. In other words, even if ```(n3 :L1)<-[r3 :R2]-(n0 :L0)-[r0 :R1]->(n2 :L1:L2)``` is able to match more than one subgraph in the property graph, we only consider the values of nodes and relationships in the simple subgraph which the pattern is built from.
 
-![example.drawio](/Users/ddaa/files/programing/tmp/GDsmith/example.drawio.png)
+![example.drawio](./example.drawio.png)
 
 # Example of Condition Generation
 
@@ -187,7 +187,7 @@ The above process goes on until we fill all sub-expressions. Sometimes, the comp
 
 One additional thing to notice is that to simplify the explanation, we claim that each constraint is splitter right before the sub-expression is generated. In the real code, to increase the diversity of sub-expressions, we use a lazy splitting strategy. For example, for a "or" expression which is required to be "true". We first use the constraint Expr.val = any to generate the leftOp expression. Then we calculate the value of the generated expression. If the value is "true", the rightOp can have any value. Otherwise, the rightOp shoud have the constraint to be "true". This is especially helpful for the generation of 
 
-![example_expr.drawio](/Users/ddaa/files/programing/tmp/GDsmith/example_expr.drawio.png)
+![example_expr.drawio](./example_expr.drawio.png)
 
 # Bugs Found by GDsmith
 

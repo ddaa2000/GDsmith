@@ -46,6 +46,9 @@ public abstract  class CypherProviderAdapter <G extends CypherGlobalState<O, S>,
             case COMPARED5://randGraph, guidedPattern, randCondition
                 algorithm = new Compared5Algorithm<>(this);
                 break;
+            case MANUAL_PERF:
+                algorithm = new ManualPerformanceAlgorithm<>(this);
+                break;
             default:
                 throw new RuntimeException();
         }
