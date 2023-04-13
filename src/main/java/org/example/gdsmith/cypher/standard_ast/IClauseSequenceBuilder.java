@@ -52,4 +52,6 @@ public interface IClauseSequenceBuilder {
     //                            IPatternGenerator patternGenerator, Neo4jSchema schema);
 
     public IClauseSequence build();
+
+    public int getLength();
 }

@@ -21,6 +21,11 @@ public class GDSmithResultSet implements Closeable {
         return result;
     }
 
+    public GDSmithResultSet(){
+        result = new ArrayList<>();
+        resultRowNum = 0;
+    }
+
     private String getMapAsString(Map<String, Object> m) {
         String s = "{";
         TreeSet<String> ts =new TreeSet<>(m.keySet());

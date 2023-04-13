@@ -246,6 +246,11 @@ public class ClauseSequence implements IClauseSequence {
             return clauseSequence;
         }
 
+        @Override
+        public int getLength() {
+            return clauseSequence.getClauseList().size();
+        }
+
 
         public IOngoingReturn ReturnClause(IRet ...returnList){
             IReturn returnClause = new Return();

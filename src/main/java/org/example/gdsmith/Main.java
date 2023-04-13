@@ -14,6 +14,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.JCommander.Builder;
 
+import org.example.gdsmith.PrintGraph.PrintGraphProvider;
 import org.example.gdsmith.arcadeDB.ArcadeDBProvider;
 import org.example.gdsmith.common.log.Loggable;
 import org.example.gdsmith.common.query.GDSmithResultSet;
@@ -608,6 +609,7 @@ public final class Main {
     public static List<DatabaseProvider<?, ?, ?>> getDBMSProviders() {
         if(providers.size()==0){
             providers.add(new Neo4jProvider());
+            providers.add(new PrintGraphProvider());
             providers.add(new AgensGraphProvider());
             providers.add(new RedisGraphProvider());
             providers.add(new MemGraphProvider());

@@ -49,6 +49,9 @@ public abstract  class CypherProviderAdapter <G extends CypherGlobalState<O, S>,
             case MANUAL_PERF:
                 algorithm = new ManualPerformanceAlgorithm<>(this);
                 break;
+            case ENUM:
+                algorithm = new EnumerationAlgorithm<>(this);
+                break;
             default:
                 throw new RuntimeException();
         }

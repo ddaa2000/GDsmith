@@ -245,6 +245,6 @@ public class MainOptions {
 
     public enum Algorithms{
         SIMPLE, PATTERN_GUIDED, MANUAL, NON_EMPTY, COMPARED1, COMPARED2, COMPARED3, COMPARED4, COMPARED5,
-        MANUAL_PERF
+        MANUAL_PERF, ENUM
     }
 }
