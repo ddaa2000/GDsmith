@@ -70,7 +70,7 @@ Create the file config.json and paste the following content:
 ```
 Then run the following command:
 ```shell
-java -jar GDsmith.jar --algorithm compared3 --num-tries 100 -num-queries 1000 composite
+java -jar GDsmith.jar --algorithm compared3 --num-tries 100 --num-queries 1000 composite
 ```
 The testing should begin, GDsmith will generate 100 graphs and for each graph it will generate 1000 queries.
 All the failures found will be recorded in ```logs``` directory.
